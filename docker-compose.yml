@@ -45,7 +45,7 @@ services:
     networks:
       - api-network
     depends_on:
-      - orders_db
+      - orders-db
 
   orders-db:
     image: postgres:13
