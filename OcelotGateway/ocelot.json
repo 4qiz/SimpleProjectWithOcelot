@@ -1,6 +1,12 @@
 ﻿{
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:80"
+    "BaseUrl": "http://localhost:80",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "🍌",
+      "HttpStatusCode": 418, 
+      "ClientIdHeader": "MyRateLimiting"
+    }
   },
   "Routes": [
     {
