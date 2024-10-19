@@ -17,7 +17,7 @@ services:
       dockerfile: ProductsApi/Dockerfile  
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnectionPostgree=Server=products_db;Port=5432;Database=products;User Id=postgres;Password=1
+      - ConnectionStrings__DefaultConnectionPostgree=Server=products-db;Port=5432;Database=products;User Id=postgres;Password=1
     networks:
       - api-network
     depends_on:
@@ -41,13 +41,13 @@ services:
       dockerfile: OrdersApi/Dockerfile  
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnectionPostgree=Server=orders_db;Port=5432;Database=orders;User Id=postgres;Password=1
+      - ConnectionStrings__DefaultConnectionPostgree=Server=orders-db;Port=5432;Database=orders;User Id=postgres;Password=1
     networks:
       - api-network
     depends_on:
       - orders_db
 
-  orders_db:
+  orders-db:
     image: postgres:13
     environment:
       POSTGRES_USER: postgres
