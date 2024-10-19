@@ -1,8 +1,8 @@
 services:
   ocelot-gateway:
     build:
-      context: ./OcelotGateway  # Path to Ocelot project
-      dockerfile: Dockerfile  # Dockerfile for Ocelot
+      context: .  # Path to Ocelot project
+      dockerfile: OcelotGateway/Dockerfile  # Dockerfile for Ocelot
     ports:
       - "8000:80"  # Expose Ocelot on port 80 
     environment:
@@ -13,8 +13,8 @@ services:
   #Products Api
   products-api:
     build:
-      context: ./ProductsApi  
-      dockerfile: Dockerfile  
+      context: .  
+      dockerfile: ProductsApi/Dockerfile  
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnectionPostgree=Server=products_db;Port=5432;Database=products;User Id=postgres;Password=1
@@ -35,8 +35,8 @@ services:
   #Orders Api    
   orders-api:
     build:
-      context: ./OrdersApi  
-      dockerfile: Dockerfile  
+      context: .  
+      dockerfile: OrdersApi/Dockerfile  
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnectionPostgree=Server=orders_db;Port=5432;Database=orders;User Id=postgres;Password=1
