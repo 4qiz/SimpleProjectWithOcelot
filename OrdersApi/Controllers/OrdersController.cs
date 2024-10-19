@@ -21,7 +21,8 @@ namespace OrdersApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.Include(o => o.Items).ToListAsync();
+            var orders = await _context.Orders.Include(o => o.Items).ToListAsync();
+            return Ok(orders);
         }
 
         // GET: api/Orders/5
@@ -41,7 +42,7 @@ namespace OrdersApi.Controllers
         // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(CreateOrderDto dto)
+        public async Task<IActionResult> CreateOrder(OrderDto dto)
         {
             var orderItems = new List<OrderItem>();
             foreach (var item in dto.OrderItems)
