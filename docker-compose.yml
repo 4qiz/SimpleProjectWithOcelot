@@ -1,0 +1,63 @@
+services:
+  ocelot-gateway:
+    build:
+      context: ./OcelotGateway  # Path to Ocelot project
+      dockerfile: Dockerfile  # Dockerfile for Ocelot
+    ports:
+      - "8000:80"  # Expose Ocelot on port 80 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - api-network
+
+  #Products Api
+  products-api:
+    build:
+      context: ./ProductsApi  
+      dockerfile: Dockerfile  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnectionPostgree=Server=products_db;Port=5432;Database=products;User Id=postgres;Password=1
+    networks:
+      - api-network
+
+  products-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: products
+    volumes:
+      - products_data:/var/lib/postgresql/data
+    networks:
+      - api-network  
+      
+  #Orders Api    
+  orders-api:
+    build:
+      context: ./OrdersApi  
+      dockerfile: Dockerfile  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnectionPostgree=Server=orders_db;Port=5432;Database=orders;User Id=postgres;Password=1
+    networks:
+      - api-network
+
+  orders_db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: orders
+    volumes:
+      - orders_data:/var/lib/postgresql/data
+    networks:
+      - api-network
+      
+volumes:
+  products_data: 
+  orders_data: 
+
+networks:
+  api-network:
+    driver: bridge  
